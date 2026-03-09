@@ -3,7 +3,7 @@ import (
   "os"
   "fmt"
   "github.com/urfave/cli"
-
+  "time"
 )
 var lizard = `@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
@@ -96,7 +96,12 @@ var JocoGoon= `##########%#####%%%%#****+++++**++==+*#%#*+***####**##%%%%%%%%%%%
 @@@@@@@@@@@@@%%%#**=-:.....:-=+**###%%%%%%%%%#++==========================+*%%%@%%%%%%%%%%%%%%%%%%%%
 @@@@@@@@@@@@%%%%#*+=-:.....-=+*####%%%%%%%%%%%#*+=======================*#%%%@%%%%%%%%%%%%%%%%%%%%%%`
 
-
+func Timer(){
+	for i := 10; i >= 0; i-- {
+		fmt.Println(i)
+		time.Sleep(2 * time.Second)
+	}
+}
 
 
 func main(){
@@ -113,6 +118,10 @@ func main(){
 			Name: "joco, j", 
 			Usage: "Goon on the JOCO",
 		},
+		cli.BoolFlag{
+			Name: "Goon, g",
+			Usage: "Its goon or die time",
+		},
 	}
 
 	app.Action = func(c *cli.Context) error{
@@ -120,6 +129,12 @@ func main(){
 			fmt.Println(lizard)
 		}else if c.Bool("joco") || c.Bool("j"){
 			fmt.Println(JocoGoon)
+		}else if c.Bool("Goon") || c.Bool("g"){
+			fmt.Println("Be ready to goon. Goon faster then the timer.... GO")
+			time.Sleep(2 * time.Second)
+			Timer()
+			time.Sleep(2 * time.Second)
+			fmt.Println("Be proud my Goon pupil, you are the Goon Warrior")
 		}else{
 			cli.ShowAppHelp(c)
 		}
